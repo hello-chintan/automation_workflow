@@ -2,4 +2,4 @@
 
 if __name__ == '__main__':
   version = "0.0.0"
-  print(version)
+  print("version is: {}".format(version))
