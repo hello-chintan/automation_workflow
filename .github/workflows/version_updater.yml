@@ -1,6 +1,8 @@
 name: Auto Update Version
 run-name: Daily version bump trigger
-on: workflow_dispatch
+on:
+    schedule:
+        - cron: '56 2 * * *'
     
 jobs:
   version_bump_schedule:
