@@ -1,0 +1,35 @@
+name: Auto Update Version
+run-name: Daily version bump trigger
+on:
+  schedule:
+    - cron: '30 5 * * *'
+    
+jobs:
+  version_bump_schedule:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Print out debug info
+        run: echo "Repo ${{ github.repository }} | Branch ${{ github.ref }} | Runner ${{ runner.os }} | Event ${{ github.event_name }}"
+
+      - name: Check out repo
+        uses: actions/checkout@v4
+      
+      - name: Configure Git user
+        run: |
+          git config --local user.email "chintujaguar@gmail.com"
+          git config --local user.name "hello-chintan"
+      
+      - name: Setup Python3
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Run version update script
+        run: python3 update_version.py
+
+      - name: Commit changes
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git add .
+          git commit -m "version bump" && git push
