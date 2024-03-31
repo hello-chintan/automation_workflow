@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
 
 if __name__ == '__main__':
-  version = "0.159.0"
+  version = "0.160.0"
   print("version is: {}".format(version))
